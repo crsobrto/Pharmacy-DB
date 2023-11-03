@@ -7,5 +7,4 @@ CREATE TABLE Test (
     columnTwo varchar(200)
 );
 
-SHOW TABLES;
-/* DESCRIBE test; */
+DESCRIBE test;
