@@ -8,7 +8,7 @@ CREATE TABLE `employee` (
   `Sex` varchar(10) DEFAULT NULL,
   `Age` varchar(10) DEFAULT NULL,
   `DOB` varchar(10) DEFAULT NULL,
-  `Address` varchar(10) DEFAULT NULL,
+  `Address` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`EmployeeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -16,21 +16,21 @@ CREATE TABLE `employee` (
 CREATE TABLE `manufacturer` (
   `ManufacturerID` varchar(10) NOT NULL,
   `ManufacturerName` varchar(10) DEFAULT NULL,
-  `Address` varchar(10) DEFAULT NULL,
-  `PhoneNumber` varchar(10) DEFAULT NULL,
+  `Address` varchar(50) DEFAULT NULL,
+  `PhoneNumber` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`ManufacturerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE `category` (
   `CategoryID` varchar(10) NOT NULL,
-  `CategoryName` varchar(10) DEFAULT NULL,
+  `CategoryName` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`CategoryID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE `medications` (
-  `SerialNumber` varchar(10) NOT NULL,
+  `SerialNumber` int(10) NOT NULL,
   `ManufacturerID` varchar(10) DEFAULT NULL,
   `MedicationName` varchar(10) DEFAULT NULL,
   `GenericName` varchar(10) DEFAULT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE `medications` (
 CREATE TABLE `batchreports` (
   `BatchID` varchar(10) NOT NULL,
   `ManufacturerID` varchar(10) DEFAULT NULL,
-  `SerialNumber` varchar(10) DEFAULT NULL,
+  `SerialNumber` int(10) DEFAULT NULL,
   `Time` varchar(10) DEFAULT NULL,
   `Date` varchar(10) DEFAULT NULL,
   `Quantity` varchar(10) DEFAULT NULL,
@@ -93,9 +93,9 @@ CREATE TABLE `patientlist` (
   `Sex` varchar(10) DEFAULT NULL,
   `Age` varchar(10) DEFAULT NULL,
   `DOB` varchar(10) DEFAULT NULL,
-  `PhoneNumber` varchar(10) DEFAULT NULL,
-  `Address` varchar(10) DEFAULT NULL,
-  `SSN` varchar(10) DEFAULT NULL,
+  `PhoneNumber` varchar(15) DEFAULT NULL,
+  `Address` varchar(50) DEFAULT NULL,
+  `SSN` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`PatientID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -104,7 +104,7 @@ CREATE TABLE `purchasehistory` (
   `PurchaseId` varchar(10) NOT NULL,
   `PatientID` varchar(10) DEFAULT NULL,
   `InventoryID` varchar(10) DEFAULT NULL,
-  `SerialID` varchar(10) DEFAULT NULL,
+  `SerialID` int(10) DEFAULT NULL,
   `Date` varchar(10) DEFAULT NULL,
   `TypeOfOrder` varchar(10) DEFAULT NULL,
   `Quantity` varchar(10) DEFAULT NULL,
