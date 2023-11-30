@@ -1,7 +1,7 @@
--- Searching records
+-- SEARCHING RECORDS
 USE Pharmacy;
 
--- Search PurchaseHistroy by serialID
+-- Search PurchaseHistory by a medication's serialID
 SELECT * FROM PurchaseHistory
 WHERE serialID = 7015;
 
@@ -16,4 +16,14 @@ SELECT PatientList.FirstName AS PatientFirstName, PatientList.LastName AS Patien
 Medications.MedicationName
 FROM PatientList
 INNER JOIN PurchaseHistory ON PatientList.PatientID = PurchaseHistory.PatientID
-INNER JOIN Medications ON PurchaseHistory.SerialID = Medications.SerialNumber;
+INNER JOIN Medications ON PurchaseHistory.SerialID = Medications.SerialNumber
+ORDER BY PurchaseDate;
+
+-- Get employee names and their batch report details
+SELECT Employee.FirstName AS EmployeeFirstName, Employee.LastName AS EmployeeLastName, BatchReports.BatchID, BatchReports.ConfirmationDate, BatchReports.Time,
+Manufacturer.manufacturerName AS ManufacturerName, Medications.MedicationName, BatchReports.Quantity, BatchReports.TotalCost, BatchReports.ExpirationDate
+FROM Employee
+INNER JOIN BatchReports ON Employee.employeeID = BatchReports.employeeID
+INNER JOIN Medications ON BatchReports.SerialNumber = Medications.SerialNumber
+INNER JOIN Manufacturer ON BatchReports.manufacturerID = Manufacturer.manufacturerID
+ORDER BY ConfirmationDate;

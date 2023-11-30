@@ -44,8 +44,8 @@ CREATE TABLE `medications` (
   KEY `manufacturerID_idx` (`manufacturerID`),
   KEY `manufacturerIDNum_idx` (`manufacturerID`),
   KEY `categoryID_idx` (`categoryID`),
-  CONSTRAINT `categoryID` FOREIGN KEY (`categoryID`) REFERENCES `category` (`categoryID`) ON DELETE CASCADE,
-  CONSTRAINT `manufacturerIDNum` FOREIGN KEY (`manufacturerID`) REFERENCES `manufacturer` (`manufacturerID`) ON DELETE CASCADE
+  CONSTRAINT `categoryID` FOREIGN KEY (`categoryID`) REFERENCES `category` (`categoryID`) ON DELETE SET NULL,
+  CONSTRAINT `manufacturerIDNum` FOREIGN KEY (`manufacturerID`) REFERENCES `manufacturer` (`manufacturerID`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `batchreports` (
@@ -62,9 +62,9 @@ CREATE TABLE `batchreports` (
   KEY `manufacturerID_idx` (`manufacturerID`),
   KEY `SerialNum_idx` (`SerialNumber`),
   KEY `employeeID_idx` (`employeeID`),
-  CONSTRAINT `employeeID` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE,
-  CONSTRAINT `manufacturerID` FOREIGN KEY (`manufacturerID`) REFERENCES `manufacturer` (`manufacturerID`) ON DELETE CASCADE,
-  CONSTRAINT `SerialNum` FOREIGN KEY (`SerialNumber`) REFERENCES `medications` (`SerialNumber`) ON DELETE CASCADE
+  CONSTRAINT `employeeID` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE SET NULL,
+  CONSTRAINT `manufacturerID` FOREIGN KEY (`manufacturerID`) REFERENCES `manufacturer` (`manufacturerID`) ON DELETE SET NULL,
+  CONSTRAINT `SerialNum` FOREIGN KEY (`SerialNumber`) REFERENCES `medications` (`SerialNumber`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `inventory` (
@@ -74,7 +74,7 @@ CREATE TABLE `inventory` (
 	`Deleted` bit default 0,
   PRIMARY KEY (`inventoryID`),
   KEY `BatchID_idx` (`BatchID`),
-  CONSTRAINT `BatchID` FOREIGN KEY (`BatchID`) REFERENCES `batchreports` (`BatchID`) ON DELETE CASCADE
+  CONSTRAINT `BatchID` FOREIGN KEY (`BatchID`) REFERENCES `batchreports` (`BatchID`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `inventory_out` (
@@ -82,7 +82,7 @@ CREATE TABLE `inventory_out` (
   `BatchID` INTEGER DEFAULT NULL,
   PRIMARY KEY (`inventoryID`),
   KEY `BatchID_idx` (`BatchID`),
-  CONSTRAINT `BatchReportID` FOREIGN KEY (`BatchID`) REFERENCES `batchreports` (`BatchID`) ON DELETE CASCADE
+  CONSTRAINT `BatchReportID` FOREIGN KEY (`BatchID`) REFERENCES `batchreports` (`BatchID`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `patientlist` (
@@ -113,10 +113,10 @@ CREATE TABLE `purchasehistory` (
   KEY `inventoryID_idx` (`inventoryID`),
   KEY `SerialID_idx` (`SerialID`),
   KEY `WorkerID_idx` (`employeeID`),
-  CONSTRAINT `inventoryID` FOREIGN KEY (`inventoryID`) REFERENCES `inventory` (`inventoryID`) ON DELETE CASCADE,
-  CONSTRAINT `PatientID` FOREIGN KEY (`PatientID`) REFERENCES `patientlist` (`PatientID`) ON DELETE CASCADE,
-  CONSTRAINT `SerialID` FOREIGN KEY (`SerialID`) REFERENCES `medications` (`SerialNumber`) ON DELETE CASCADE,
-  CONSTRAINT `WorkerID` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE
+  CONSTRAINT `inventoryID` FOREIGN KEY (`inventoryID`) REFERENCES `inventory` (`inventoryID`) ON DELETE SET NULL,
+  CONSTRAINT `PatientID` FOREIGN KEY (`PatientID`) REFERENCES `patientlist` (`PatientID`) ON DELETE SET NULL,
+  CONSTRAINT `SerialID` FOREIGN KEY (`SerialID`) REFERENCES `medications` (`SerialNumber`) ON DELETE SET NULL,
+  CONSTRAINT `WorkerID` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 ALTER TABLE employee AUTO_INCREMENT=5000;
