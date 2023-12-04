@@ -271,8 +271,8 @@ END$$
 CREATE TRIGGER Pharmacy.batchreport_After_Insert AFTER insert ON batchreports FOR EACH ROW
 BEGIN
 if new.BatchID then
-if exists ((select SerialNumber from batchreports where SerialNumber = new.SerialNumber)) = (select SerialNumber from inventory where SerialNumber = new.SerialNumber) then
-update inventory set Stock = Stock + Quantity where SerialNumber = new.SerialNumber;
+if exists(select 1 from inventory where SerialNumber = new.SerialNumber) then
+update inventory set Stock = Stock + new.Quantity where SerialNumber = new.SerialNumber;
 else
 insert into inventory(inventoryID, BatchID, Stock, SerialNumber) values (null, new.BatchID, new.Quantity, new.SerialNumber);
 end if;
